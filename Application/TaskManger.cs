@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using System.Text;
 
 namespace TaskManager.Application
 {
-    internal partial class TaskManger
+    internal static class TaskManger
     {
+        private static StringBuilder stringBuilder = new();
        
         public static void ListAllRunningTasks()
         {
@@ -51,10 +53,42 @@ namespace TaskManager.Application
                 goto StartTask;
             }
         }
+        public static void StartACustomProcess()
+        {
+
+         
+         try
+            {
+
+                ProcessStartInfo customProcessInfo = new("Spotify");
+              
+                customProcessInfo.WindowStyle = ProcessWindowStyle.Maximized;
+                customProcessInfo.Verb = "Open";
+                customProcessInfo.UseShellExecute = true;
+                Process.Start(customProcessInfo);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine(ex.Message);
+                
+            }
+        }
         public static void StartAThread()
         {
-            Thread newThread = new();
+            Thread newThread = new(CookFood);
         }
 
+        public static void CookFood()
+        {
+            Console.WriteLine("Preparing Breakfast\n");
+            Console.WriteLine("Toasting bread....");
+            Thread.Sleep(3000);
+            Console.WriteLine("Brewing coffee....");
+            Thread.Sleep(3000);
+            Console.WriteLine("Frying eggs....");
+            Thread.Sleep(3000);
+            Console.WriteLine("BreakFast is ready!!! ");
+
+            }
     }
 }
