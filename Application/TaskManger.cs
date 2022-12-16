@@ -29,7 +29,7 @@ namespace TaskManager.Application
                 {
                     item.Kill(true);
                 }
-
+                Console.WriteLine("Task {0} Stopped", name);
             }
             catch (InvalidOperationException ex)
             {
@@ -51,6 +51,7 @@ namespace TaskManager.Application
                 customProcessInfo.Verb = "Open";
                 customProcessInfo.UseShellExecute = true;
                 Process.Start(customProcessInfo);
+                Console.WriteLine("Task {0} Started", name);
             }
             catch (InvalidOperationException ex)
             {
@@ -71,6 +72,7 @@ namespace TaskManager.Application
                 customProcessInfo.Verb = "Open";
                 customProcessInfo.UseShellExecute = true;
                 Process.Start(customProcessInfo);
+                Console.WriteLine("Process {0} Started", customProcessInfo.FileName);
             }
             catch (InvalidOperationException ex)
             {
@@ -103,7 +105,7 @@ namespace TaskManager.Application
             var isAlive = Thread.CurrentThread.IsAlive;
             var isBackground = Thread.CurrentThread.IsBackground;
 
-             Console.WriteLine($" Is Thread Alive : {isAlive} \t Is Thread Background: {isBackground} ");
+             Console.WriteLine($"Is Thread Alive : {isAlive} \t Is Thread Background: {isBackground} ");
             
         }
     }
