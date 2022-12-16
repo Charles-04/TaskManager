@@ -21,6 +21,7 @@ namespace TaskManager.Utility
             stringBuilder.AppendLine($"4 Start custom process");
             stringBuilder.AppendLine($"5 Create a background thread");
             stringBuilder.AppendLine($"6 Check thread status (Live or Background)");
+            stringBuilder.AppendLine($"7 Exit");
 
         }
         
@@ -32,26 +33,39 @@ namespace TaskManager.Utility
         public static void Run()
         {
             Run: try {
+               
                 DisplayMenu();
                 var option = int.Parse(Console.ReadLine());
                 
                 switch (option)
                 {
                     case 1:
+                        Console.Clear();
                         TaskManger.StartANewTask();
                         goto Run;
                     case 2:
+                        Console.Clear();
                         TaskManger.KillATask();
                         goto Run;
                     case 3:
+                        Console.Clear();
                         TaskManger.ListAllRunningTasks();
                         goto Run;
                     case 4:
+                        Console.Clear();
                         TaskManger.StartACustomProcess();
                         goto Run;
                     case 5:
+                        Console.Clear();
                         TaskManger.StartAThread();
                         goto Run;
+                    case 6:
+                        Console.Clear();
+                        TaskManger.CheckThreadStatus();
+                        goto Run;
+                    case 7:
+                        Environment.Exit(000);
+                        break;
                     default:
                         Console.WriteLine("Incorrect Option");
                         goto Run;

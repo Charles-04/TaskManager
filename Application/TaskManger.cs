@@ -6,11 +6,11 @@ namespace TaskManager.Application
     internal static class TaskManger
     {
         private static StringBuilder stringBuilder = new();
-       
+
         public static void ListAllRunningTasks()
         {
-         
-          var runningTasks = Process.GetProcesses().OrderBy((x) => (x.ProcessName));    
+
+            var runningTasks = Process.GetProcesses().OrderBy((x) => (x.ProcessName));
 
 
             foreach (var task in runningTasks)
@@ -45,7 +45,12 @@ namespace TaskManager.Application
             {
                 Console.WriteLine("Enter Task name");
                 var name = Console.ReadLine();
-                process = Process.Start(@$"{name}");
+                ProcessStartInfo customProcessInfo = new($"{name}");
+
+                customProcessInfo.WindowStyle = ProcessWindowStyle.Maximized;
+                customProcessInfo.Verb = "Open";
+                customProcessInfo.UseShellExecute = true;
+                Process.Start(customProcessInfo);
             }
             catch (InvalidOperationException ex)
             {
@@ -56,12 +61,12 @@ namespace TaskManager.Application
         public static void StartACustomProcess()
         {
 
-         
-         try
+
+            try
             {
 
                 ProcessStartInfo customProcessInfo = new("Spotify");
-              
+
                 customProcessInfo.WindowStyle = ProcessWindowStyle.Maximized;
                 customProcessInfo.Verb = "Open";
                 customProcessInfo.UseShellExecute = true;
@@ -70,12 +75,15 @@ namespace TaskManager.Application
             catch (InvalidOperationException ex)
             {
                 Console.WriteLine(ex.Message);
-                
+
             }
         }
         public static void StartAThread()
         {
-            Thread newThread = new(CookFood);
+            ThreadStart myFunc = new(CookFood);
+            Thread newThread = new(myFunc);
+            newThread.Priority = ThreadPriority.Highest;
+            newThread.Start();
         }
 
         public static void CookFood()
@@ -89,6 +97,14 @@ namespace TaskManager.Application
             Thread.Sleep(3000);
             Console.WriteLine("BreakFast is ready!!! ");
 
-            }
+        }
+        public static void CheckThreadStatus()
+        {
+            var isAlive = Thread.CurrentThread.IsAlive;
+            var isBackground = Thread.CurrentThread.IsBackground;
+
+             Console.WriteLine($" Is Thread Alive : {isAlive} \t Is Thread Background: {isBackground} ");
+            
+        }
     }
 }
